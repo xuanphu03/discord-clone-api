@@ -19,7 +19,13 @@ app.use(
 );
 
 app.get('/', (c) => c.json({ message: 'Hello Hono!' }));
-app.post('/sign-in', (c) => c.json({ token: '1233121' }));
+
+app.post('/sign-in', async (c) => {
+  const body = await c.req.json();
+
+  return c.json({ token: '1233121' });
+});
+
 app.post('/sign-up', (c) => c.json({ token: '3333121' }));
 
 export default handle(app)
