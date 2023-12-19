@@ -7,7 +7,8 @@ export const config = {
 
 const app = new Hono().basePath('/api')
 
-app.get('/', (c) => c.json({ message: 'Hello Hono!' }))
+app.get('/', (c) => c.json({ message: 'Hello Hono!' }));
 app.get('/sign-in', (c) => c.json({ token: '1233121' }));
+app.get('/sign-up', (c) => c.json({ token: '3333121' }));
 
 export default handle(app)
