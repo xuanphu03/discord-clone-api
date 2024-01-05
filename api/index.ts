@@ -23,7 +23,7 @@ app.get('/', (c) => c.json({ message: 'Hello Hono!' }));
 app.post('/sign-in', async (c) => {
   const { email, password } = await c.req.json();
 
-  if (email === 'chuyennhagao@gmail.com' && password === 'chuyennhagao') {
+  if (email === 'chuyennhagao@gmail.com' && password === 'Chuyennhagao123@') {
     return c.json({ token: '1233121' });
   }
   return c.json({ error: 'Invalid email or password' }, 401);
