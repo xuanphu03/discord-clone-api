@@ -1,12 +1,33 @@
 {
   "scripts": {
-    "start": "vercel dev",
-    "deploy": "vercel"
+    "start": "node public/index.js",
+    "build": "tsc && tsc-alias",
+    "deploy": "vercel",
+    "dev": "tsx watch src/index.ts"
   },
   "dependencies": {
-    "hono": "^3.11.7"
+    "@hono/node-server": "^1.4.0",
+    "@hono/zod-validator": "^0.1.11",
+    "@prisma/client": "^5.7.1",
+    "@react-email/components": "0.0.12",
+    "@react-email/render": "0.0.10",
+    "@types/react": "^18.2.46",
+    "@types/react-dom": "^18.2.18",
+    "bcrypt": "^5.1.1",
+    "concurrently": "^8.2.2",
+    "hono": "^3.12.0",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.8",
+    "prisma": "^5.7.1",
+    "react-email": "^1.10.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "vercel": "^32.4.1"
+    "@types/node": "^20.10.6",
+    "dotenv": "^16.3.1",
+    "tsc-alias": "^1.8.8",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3",
+    "vercel": "^33.0.2"
   }
 }
