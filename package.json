@@ -6,8 +6,7 @@
     "dev": "tsx watch src/index.ts",
     "check": "tsc --noEmit",
     "generate": "prisma generate --no-engine",
-    "postinstall": "prisma generate --no-engine",
-    "email": "email dev --dir src/emails"
+    "postinstall": "prisma generate --no-engine"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
