@@ -1,10 +1,16 @@
 {
   "scripts": {
+    "deploy": "vercel",
     "start": "node public/index.js",
     "build": "tsc && tsc-alias",
-    "deploy": "vercel",
     "dev": "tsx watch src/index.ts",
-    "generate": "prisma generate --no-engine"
+    "check": "tsc --noEmit",
+    "generate": "prisma generate --no-engine",
+    "postinstall": "prisma generate --no-engine",
+    "email": "email dev --dir src/emails"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.7.0",
