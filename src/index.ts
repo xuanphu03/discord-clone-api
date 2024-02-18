@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { serve } from '@hono/node-server';
 import { logger } from 'hono/logger';
-// import { router as authRouter } from './modules/auth/auth.controller';
+import { router as authRouter } from './modules/auth/auth.controller';
 import { router as orgsRouter } from './modules/orgs/orgs.controller';
 import { router as usersRouter } from './modules/users/users.controller';
 import { router as channelsRouter } from './modules/channels/channels.controller';
@@ -20,8 +20,8 @@ app.use(
     credentials: true,
   })
 );
-// app.route('/', authRouter);
 
+app.route('/', authRouter);
 app.route('/orgs', orgsRouter);
 // app.all('*', auth).route('/orgs', orgsRouter);
 // app.all('*', auth).route('/users', usersRouter);

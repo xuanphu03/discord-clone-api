@@ -3,7 +3,8 @@
     "start": "node public/index.js",
     "build": "tsc && tsc-alias",
     "deploy": "vercel",
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "generate": "prisma generate --no-engine"
   },
   "dependencies": {
     "@hono/node-server": "^1.7.0",

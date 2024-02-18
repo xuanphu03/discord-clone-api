@@ -9,123 +9,19 @@ generator client {
 }
 
 model Org {
-  id           String         @id @default(cuid())
-  icon         String
-  name         String
-  userId       String
-  users        UsersOnOrgs[]
-  Role         Role[]
-  UsersOnRoles UsersOnRoles[]
-  categories   Category[]
-  channels     Channel[]
+  id     String @id @default(cuid())
+  icon   String
+  name   String
+  userId String
 
   @@map("orgs")
 }
 
-model Category {
-  id        String    @id @default(cuid())
-  name      String
-  orgId     String
-  org       Org       @relation(fields: [orgId], references: [id], onDelete: Cascade)
-  isPrivate Boolean   @default(false)
-  channels  Channel[]
-
-  @@index([orgId], name: "orgId")
-  @@map("categories")
-}
-
-model Role {
-  id           String         @id @default(cuid())
-  name         String
-  color        String
-  orgId        String
-  org          Org            @relation(fields: [orgId], references: [id])
-  UsersOnRoles UsersOnRoles[]
-
-  @@map("roles")
-}
-
 model User {
-  id         String            @id @default(cuid())
-  email      String            @unique
-  password   String
-  salt       String
-  orgs       UsersOnOrgs[]
-  fullName   String?
-  isVerified Boolean           @default(false)
-  roles      UsersOnRoles[]
-  channels   UsersOnChannels[]
-  Message    Message[]
+  id       String @id @default(cuid())
+  email    String @unique
+  password String
+  salt     String
 
   @@map("users")
-}
-
-enum ChannelType {
-  TEXT
-  VOICE
-  FORUM
-  ANNOUNCEMENT
-  STAGE
-}
-
-model Channel {
-  id         String            @id @default(cuid())
-  name       String
-  orgId      String?
-  org        Org?              @relation(fields: [orgId], references: [id], onDelete: Cascade)
-  type       ChannelType
-  isPrivate  Boolean           @default(false)
-  members    UsersOnChannels[]
-  messages   Message[]
-  categoryId String?
-  category   Category?         @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-
-  @@index([categoryId], name: "categoryId")
-  @@index([orgId])
-  @@map("channels")
-}
-
-model Message {
-  id        String   @id @default(cuid())
-  content   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  senderId  String
-  sender    User     @relation(fields: [senderId], references: [id], onDelete: Cascade)
-  channelId String
-  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
-
-  @@map("messages")
-}
-
-model UsersOnChannels {
-  user      User    @relation(fields: [userId], references: [id])
-  userId    String
-  channel   Channel @relation(fields: [channelId], references: [id])
-  channelId String
-
-  @@id([userId, channelId])
-  @@map("users_on_channels")
-}
-
-model UsersOnRoles {
-  user   User    @relation(fields: [userId], references: [id])
-  userId String
-  role   Role    @relation(fields: [roleId], references: [id])
-  roleId String
-  Org    Org?    @relation(fields: [orgId], references: [id])
-  orgId  String?
-
-  @@id([roleId, userId])
-  @@map("users_on_roles")
-}
-
-model UsersOnOrgs {
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
-  org    Org    @relation(fields: [orgId], references: [id])
-  orgId  String
-
-  @@id([orgId, userId])
-  @@map("users_on_orgs")
 }
