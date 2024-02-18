@@ -1,10 +1,26 @@
 import { Hono } from "hono";
-import { OrgsService } from "./orgs.service";
+import { db } from "@/lib/db";
 
 export const router = new Hono();
 
 router
-  .get('/:orgID/members', (c) =>
+  .get('/', async (c) => {
+    const orgs = await db.org.findMany({});
+    return c.json(orgs);
+  })
+  .post('/', async (c) => {
+    const { name, icon, userId } = await c.req.json();
+
+    const orgs = await db.org.create({
+      data: {
+        name: name,
+        icon: icon,
+        userId: userId,
+      },
+    });
+    return c.json(orgs);
+  })
+  .get('/:orgID/members', async (c) =>
     c.json([
       {
         id: '001',

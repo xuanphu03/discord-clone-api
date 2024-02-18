@@ -22,7 +22,7 @@ app.use(
 );
 // app.route('/', authRouter);
 
-app.route('orgs', orgsRouter);
+app.route('/orgs', orgsRouter);
 // app.all('*', auth).route('/orgs', orgsRouter);
 // app.all('*', auth).route('/users', usersRouter);
 // app.all('*', auth).route('/channels', channelsRouter);
