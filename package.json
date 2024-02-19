@@ -1,8 +1,6 @@
 {
   "name": "discord-clone-api",
-  "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "start": "node public/index.js",
     "build": "tsc && tsc-alias",
