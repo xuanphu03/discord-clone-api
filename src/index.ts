@@ -4,10 +4,6 @@ import { serve } from '@hono/node-server';
 import { logger } from 'hono/logger';
 import { router as authRouter } from './modules/auth/auth.controller';
 import { router as orgsRouter } from './modules/orgs/orgs.controller';
-import { router as usersRouter } from './modules/users/users.controller';
-import { router as channelsRouter } from './modules/channels/channels.controller';
-import { router as categoriesRouter } from './modules/categories/categories.controller';
-import { auth } from './middlewares/auth';
 import { errorFilter } from './middlewares/error-fillters';
 
 const app = new Hono().basePath('/api');
