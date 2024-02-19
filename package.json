@@ -7,7 +7,10 @@
     "start": "node public/index.js",
     "build": "tsc && tsc-alias",
     "deploy": "vercel",
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "check": "tsc --noEmit",
+    "generate": "prisma generate --no-engine",
+    "postinstall": "prisma generate --no-engine"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
@@ -22,6 +25,7 @@
     "@types/react-dom": "^18.2.19",
     "bcrypt": "^5.1.1",
     "concurrently": "^8.2.2",
+    "dotenv": "^16.4.4",
     "hono": "^3.12.0",
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^6.9.9",
@@ -31,7 +35,6 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.19",
-    "dotenv": "^16.4.4",
     "tsc-alias": "^1.8.8",
     "tsx": "^4.7.1",
     "typescript": "^5.3.3",
