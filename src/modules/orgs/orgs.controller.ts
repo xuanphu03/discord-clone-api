@@ -1,21 +1,29 @@
-import { Hono } from "hono";
-import { db } from "@/lib/db";
+import { Hono } from 'hono';
+import { db } from '@/lib/db';
+import { User } from '@prisma/client';
 
 export const router = new Hono();
 
 router
   .get('/', async (c) => {
-    const orgs = await db.org.findMany({});
+    const user = c.get('user');
+    const orgs = await db.org.findMany({
+      where: {
+        userId: user?.id,
+      },
+    });
+
     return c.json(orgs);
   })
   .post('/', async (c) => {
+    const user = c.get('user');
     const { name, icon, userId } = await c.req.json();
 
     const orgs = await db.org.create({
       data: {
         name: name,
         icon: icon,
-        userId: userId,
+        userId: user.id,
       },
     });
     return c.json(orgs);
@@ -26,11 +34,12 @@ router
         id: '001',
         displayName: 'xuna fu',
         username: 'Xuan Phu',
-        avatar: 'https://th.bing.com/th/id/OIP.GS0ptM4PYsIKvcRmTCoOTgHaEF?w=309&h=180&c=7&r=0&o=5&pid=1.7',
+        avatar:
+          'https://th.bing.com/th/id/OIP.GS0ptM4PYsIKvcRmTCoOTgHaEF?w=309&h=180&c=7&r=0&o=5&pid=1.7',
         memberSince: '2022-01-01',
         joinedDiscord: '2022-01-01',
         joinMethod: 'Discord',
-        roles: ["Admin"],
+        roles: ['Admin'],
       },
     ])
   )
@@ -40,7 +49,8 @@ router
         id: 1,
         displayName: 'Shin',
         userName: 'shinosuke123',
-        avatar: 'https://th.bing.com/th/id/OIP.GS0ptM4PYsIKvcRmTCoOTgHaEF?w=309&h=180&c=7&r=0&o=5&pid=1.7',
+        avatar:
+          'https://th.bing.com/th/id/OIP.GS0ptM4PYsIKvcRmTCoOTgHaEF?w=309&h=180&c=7&r=0&o=5&pid=1.7',
         backgroundColor: '#2fffff',
         roles: ['Học viên'],
         category: {
@@ -52,7 +62,8 @@ router
         id: 2,
         displayName: 'XunaFu',
         userName: 'kuma.xp03',
-        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsxcQs95fyxfOtD_tiH5-dedux-NtPJ9HRWg&usqp=CAU',
+        avatar:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsxcQs95fyxfOtD_tiH5-dedux-NtPJ9HRWg&usqp=CAU',
         backgroundColor: '#2faf9f',
         roles: ['Admin', 'F0'],
         category: {
@@ -64,7 +75,8 @@ router
         id: 3,
         displayName: 'Xuna',
         userName: 'Xunafudev',
-        avatar: 'https://th.bing.com/th/id/OIP.GS0ptM4PYsIKvcRmTCoOTgHaEF?w=309&h=180&c=7&r=0&o=5&pid=1.7',
+        avatar:
+          'https://th.bing.com/th/id/OIP.GS0ptM4PYsIKvcRmTCoOTgHaEF?w=309&h=180&c=7&r=0&o=5&pid=1.7',
         backgroundColor: '#56d6fd',
         roles: ['Học viên'],
         category: {
@@ -76,7 +88,8 @@ router
         id: 4,
         displayName: 'Bitay',
         userName: 'trantin03',
-        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsxcQs95fyxfOtD_tiH5-dedux-NtPJ9HRWg&usqp=CAU',
+        avatar:
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsxcQs95fyxfOtD_tiH5-dedux-NtPJ9HRWg&usqp=CAU',
         backgroundColor: '#56d6fd',
         roles: ['Học viên'],
         category: {
@@ -98,4 +111,4 @@ router
         },
       },
     ])
-  );;
+  );

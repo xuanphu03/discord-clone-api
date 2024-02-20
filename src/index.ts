@@ -5,6 +5,7 @@ import { logger } from 'hono/logger';
 import { router as authRouter } from './modules/auth/auth.controller';
 import { router as orgsRouter } from './modules/orgs/orgs.controller';
 import { errorFilter } from './middlewares/error-fillters';
+import { auth } from './middlewares/auth';
 
 const app = new Hono().basePath('/api');
 
@@ -18,7 +19,7 @@ app.use(
 );
 
 app.route('/', authRouter);
-app.route('/orgs', orgsRouter);
+app.all('*', auth).route('/orgs', orgsRouter);
 
 app.notFound((c) => c.json({ status: 404, message: 'Not found' }, 404));
 

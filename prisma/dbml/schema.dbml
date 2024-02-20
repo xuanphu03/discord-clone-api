@@ -1,0 +1,21 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table orgs {
+  id String [pk]
+  icon String [not null]
+  name String [not null]
+  userId String [not null]
+  user users [not null]
+}
+
+Table users {
+  id String [pk]
+  email String [unique, not null]
+  password String [not null]
+  salt String [not null]
+  Org orgs [not null]
+}
+
+Ref: orgs.userId > users.id
