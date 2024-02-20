@@ -6,6 +6,9 @@ import { router as authRouter } from './modules/auth/auth.controller';
 import { router as orgsRouter } from './modules/orgs/orgs.controller';
 import { errorFilter } from './middlewares/error-fillters';
 import { auth } from './middlewares/auth';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = new Hono().basePath('/api');
 

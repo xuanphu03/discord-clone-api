@@ -7,6 +7,7 @@ export const router = new Hono();
 router
   .post('/sign-in', zValidator('json', signInDto), async (c) => {
     const { email, password } = await c.req.json();
+    console.log(process.env.DATABASE_URL)
     const data = await AuthService.signIn(email, password);
     return c.json(data, 200);
   })
