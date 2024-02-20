@@ -18,7 +18,7 @@ export const signInDto = z.object({
     .string({
       required_error: 'Password is required',
     })
-    .min(6, 'Password must be at least 6 characters long'),
+    .min(8, 'Password must be at least 8 characters long'),
 });
 
 export const signUpDto = z.object({
@@ -31,7 +31,7 @@ export const signUpDto = z.object({
     .string({
       required_error: 'Password is required',
     })
-    .min(6, 'Password must be at least 6 characters long'),
+    .min(8, 'Password must be at least 8 characters long'),
   username: z.string({
     required_error: 'Username is required',
   }),

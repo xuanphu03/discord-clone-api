@@ -5,6 +5,7 @@ import { hashPassword } from '@/utils/password';
 import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { JWT_SECRET } from '@/lib/config';
+import { mailService } from '@/lib/mail.service';
 
 export const ACCESS_TOKEN_EXPIRE_IN = 60 * 60;
 export class AuthService {
@@ -26,10 +27,10 @@ export class AuthService {
       throw new UnauthorizedException('Invalid password');
     }
 
-    const accessToken = jwt.sign({ userId: user.id }, JWT_SECRET, {
+    const accessToken = jwt.sign({ userId: user }, JWT_SECRET, {
       expiresIn: ACCESS_TOKEN_EXPIRE_IN,
     });
-
+    
     return { accessToken };
   }
 
@@ -61,5 +62,31 @@ export class AuthService {
         throw error;
       }
     }
+  }
+
+  static async createToken(userId: string) {
+    return jwt.sign({ userId: userId }, JWT_SECRET, {
+      expiresIn: ACCESS_TOKEN_EXPIRE_IN,
+    });
+  }
+
+  static async forgotPassword(email: string) {
+    const user = await db.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+
+    if (!user) {
+      throw new BadRequestException(`Email ${email} not found`);
+    }
+
+    const accessToken = this.createToken(user.id);
+    
+    await mailService.sendMail({
+      to: email,
+      html: `Click <a href="http://localhost:3000/auth/reset-password?token=${accessToken}">here</a> to reset your password`,
+      subject: "Reset your password",
+    });
   }
 }
