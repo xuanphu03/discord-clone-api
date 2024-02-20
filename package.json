@@ -7,7 +7,7 @@
     "dev": "tsx watch src/index.ts",
     "check": "tsc --noEmit",
     "generate": "prisma generate",
-    "postinstall": "prisma generate --no-engine",
+    "postinstall": "prisma generate",
     "email": "email dev --dir src/emails"
   },
   "prisma": {
