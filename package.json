@@ -6,7 +6,7 @@
     "build": "tsc && tsc-alias",
     "dev": "tsx watch src/index.ts",
     "check": "tsc --noEmit",
-    "generate": "prisma generate --no-engine",
+    "generate": "prisma generate",
     "postinstall": "prisma generate --no-engine",
     "email": "email dev --dir src/emails"
   },
