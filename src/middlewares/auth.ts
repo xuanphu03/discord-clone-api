@@ -12,8 +12,9 @@ export const auth = async (c: Context, next: Next) => {
     if (!token) {
       throw new UnauthorizedException("Unauthorized");
     }
-    const data = jwt.verify(token, JWT_SECRET);
+    const data = jwt.verify(token, JWT_SECRET) as { userId: string };
 
+    console.log(data)
     const user = await db.user.findUnique({
       where: {
         id: data.userId,
