@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { handle } from '@hono/node-server/vercel'
 import { cors } from 'hono/cors';
-import { serve } from '@hono/node-server';
+// import { serve } from '@hono/node-server';
 import { logger } from 'hono/logger';
 import { router as authRouter } from './modules/auth/auth.controller';
 import { router as orgsRouter } from './modules/orgs/orgs.controller';
