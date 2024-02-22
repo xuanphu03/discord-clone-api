@@ -29,8 +29,8 @@ app.notFound((c) => c.json({ status: 404, message: 'Not found' }, 404));
 
 app.onError(errorFilter);
 
-serve(app, () => {
-  console.log('Server is running on http://localhost:3000');
-});
+// serve(app, () => {
+//   console.log('Server is running on http://localhost:3000');
+// });
 
 export default handle(app);
