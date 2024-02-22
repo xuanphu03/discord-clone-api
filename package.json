@@ -2,7 +2,7 @@
   "main": "index.js",
   "scripts": {
     "deploy": "vercel",
-    "start": "node public/index.js",
+    "start": "vercel dev",
     "build": "tsc && tsc-alias",
     "dev": "tsx watch api/index.ts",
     "check": "tsc --noEmit",
@@ -10,6 +10,7 @@
     "postinstall": "prisma generate",
     "email": "email dev --dir src/emails"
   },
+  "type": "module",
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
