@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { db } from '@/lib/db';
 import { BadRequestException, UnauthorizedException } from '@/utils/exceptions';
 import { hashPassword } from '@/utils/password';
-import { Prisma } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { JWT_SECRET } from '@/lib/config';
 import { mailService } from '@/lib/mail.service';
@@ -30,7 +30,7 @@ export class AuthService {
     const accessToken = jwt.sign({ userId: user }, JWT_SECRET, {
       expiresIn: ACCESS_TOKEN_EXPIRE_IN,
     });
-    
+
     return { accessToken };
   }
 
@@ -64,7 +64,7 @@ export class AuthService {
     }
   }
 
-  static async createToken(userId: string) {
+  static createToken(userId: string) {
     return jwt.sign({ userId: userId }, JWT_SECRET, {
       expiresIn: ACCESS_TOKEN_EXPIRE_IN,
     });
@@ -82,11 +82,34 @@ export class AuthService {
     }
 
     const accessToken = this.createToken(user.id);
-    
+
     await mailService.sendMail({
       to: email,
       html: `Click <a href="http://localhost:3000/auth/reset-password?token=${accessToken}">here</a> to reset your password`,
-      subject: "Reset your password",
+      subject: 'Reset your password',
+    });
+  }
+
+  static async resetPassword(user: User, newPassword: string) {
+    const isSamePassword = await bcrypt.compare(newPassword, user.password);
+
+    if (isSamePassword) {
+      throw new BadRequestException(
+        'New password must be different from old password'
+      );
+    }
+
+    const salt = bcrypt.genSaltSync();
+    const hashedPassword = await hashPassword(newPassword, salt);
+
+    await db.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        password: hashedPassword,
+        salt: salt,
+      },
     });
   }
 }
