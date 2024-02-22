@@ -1,4 +1,5 @@
 import { Hono } from 'hono';
+import { handle } from '@hono/node-server/vercel'
 import { cors } from 'hono/cors';
 import { serve } from '@hono/node-server';
 import { logger } from 'hono/logger';
@@ -31,3 +32,5 @@ app.onError(errorFilter);
 serve(app, () => {
   console.log('Server is running on http://localhost:3000');
 });
+
+export default handle(app);
