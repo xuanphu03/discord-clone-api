@@ -2,7 +2,6 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { serve } from '@hono/node-server';
 import { logger } from 'hono/logger';
-import { handle } from 'hono/vercel';
 import { router as authRouter } from './modules/auth/auth.controller';
 import { router as orgsRouter } from './modules/orgs/orgs.controller';
 import { errorFilter } from './middlewares/error-fillters';
@@ -32,5 +31,3 @@ app.onError(errorFilter);
 serve(app, () => {
   console.log('Server is running on http://localhost:3000');
 });
-
-export default handle(app);
