@@ -2,9 +2,9 @@
   "main": "index.js",
   "scripts": {
     "deploy": "vercel",
-    "start": "vercel dev",
+    "start": "node public/index.js",
     "build": "tsc && tsc-alias",
-    "dev": "tsx watch api/index.ts",
+    "dev": "tsx watch src/index.ts",
     "check": "tsc --noEmit",
     "generate": "prisma generate",
     "postinstall": "prisma generate",
