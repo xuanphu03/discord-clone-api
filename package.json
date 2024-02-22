@@ -4,7 +4,7 @@
     "deploy": "vercel",
     "start": "node public/index.js",
     "build": "tsc && tsc-alias",
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx watch api/index.ts",
     "check": "tsc --noEmit",
     "generate": "prisma generate",
     "postinstall": "prisma generate",

@@ -1,11 +1,11 @@
 import { Hono } from 'hono';
-import { handle } from '@hono/node-server/vercel'
+import { handle } from '@hono/node-server/vercel';
 // import { cors } from 'hono/cors';
 // import { logger } from 'hono/logger';
-import { router as authRouter } from './modules/auth/auth.controller';
-import { router as orgsRouter } from './modules/orgs/orgs.controller';
-import { errorFilter } from './middlewares/error-fillters';
-import { auth } from './middlewares/auth';
+import { router as authRouter } from '../src/modules/auth/auth.controller';
+import { router as orgsRouter } from '../src/modules/orgs/orgs.controller';
+import { errorFilter } from '../src/middlewares/error-fillters';
+import { auth } from '../src/middlewares/auth';
 
 const app = new Hono().basePath('/api');
 
