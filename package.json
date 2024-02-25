@@ -1,9 +1,7 @@
 {
-  "type": "module",
   "main": "index.js",
   "scripts": {
     "deploy": "vercel",
-    "start": "node public/index.js",
     "build": "tsc && tsc-alias",
     "dev": "tsx watch src/index.ts",
     "check": "tsc --noEmit",
