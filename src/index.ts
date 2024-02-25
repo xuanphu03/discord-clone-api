@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { serve } from '@hono/node-server';
-// import { cors } from 'hono/cors';
-// import { logger } from 'hono/logger';
+import { cors } from 'hono/cors';
+import { logger } from 'hono/logger';
 import { router as authRouter } from './modules/auth/auth.controller';
 import { router as orgsRouter } from './modules/orgs/orgs.controller';
 import { errorFilter } from './middlewares/error-fillters';
@@ -9,14 +9,14 @@ import { auth } from './middlewares/auth';
 
 const app = new Hono().basePath('/api');
 
-// app.use('*', logger());
-// app.use(
-//   '*',
-//   cors({
-//     origin: ['http://localhost:5173', 'https://discord-web-clone.vercel.app'],
-//     credentials: true,
-//   })
-// );
+app.use('*', logger());
+app.use(
+  '*',
+  cors({
+    origin: ['http://localhost:5173', 'https://discord-web-clone.vercel.app'],
+    credentials: true,
+  })
+);
 
 app.route('/', authRouter);
 app.all('*', auth).route('/orgs', orgsRouter);
