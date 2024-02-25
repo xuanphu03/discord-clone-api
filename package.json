@@ -1,5 +1,5 @@
 {
-  "main": "public/index.js",
+  "main": "index.js",
   "scripts": {
     "start": "node public/index.js",
     "deploy": "vercel",
