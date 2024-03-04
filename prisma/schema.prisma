@@ -27,6 +27,7 @@ model User {
   email    String @unique
   password String
   salt     String
+  isVerified Boolean @default(false)
   Org      Org[]
 
   @@map("users")

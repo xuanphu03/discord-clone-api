@@ -15,6 +15,7 @@ Table users {
   email String [unique, not null]
   password String [not null]
   salt String [not null]
+  isVerified Boolean [not null, default: false]
   Org orgs [not null]
 }
 
