@@ -5,8 +5,6 @@ import { s3Service } from '@/lib/s3.service';
 
 export const router = new Hono();
 
-const storage = 
-
 router
   .post('/', async (c) => {
     const body = await c.req.parseBody();
