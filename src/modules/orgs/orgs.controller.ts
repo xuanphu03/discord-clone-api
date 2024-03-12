@@ -1,6 +1,8 @@
 import { Hono } from 'hono';
 import { db } from '@/lib/db';
 import { User } from '@prisma/client';
+import { zValidator } from '@hono/zod-validator';
+import { createOrgDto } from './dto/create-org.dto';
 
 export const router = new Hono();
 
@@ -15,14 +17,15 @@ router
 
     return c.json(orgs);
   })
-  .post('/', async (c) => {
+  .post('/', zValidator('json', createOrgDto), async (c) => {
     const user = c.get('user');
-    const { name, icon, userId } = await c.req.json();
+    const { name, icon } = await c.req.json();
+
 
     const orgs = await db.org.create({
       data: {
-        name: name,
-        icon: icon,
+        name,
+        icon,
         userId: user.id,
       },
     });

@@ -27,7 +27,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid password');
     }
 
-    const accessToken = jwt.sign({ userId: user }, JWT_SECRET, {
+    const accessToken = jwt.sign({ userId: user.id }, JWT_SECRET, {
       expiresIn: ACCESS_TOKEN_EXPIRE_IN,
     });
 
